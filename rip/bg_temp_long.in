@@ -1,0 +1,44 @@
+ &userin
+ idotitle=1,titlecolor='def.foreground',
+ ptimes=0,-168,0.5
+ ptimeunits='h',tacc=30,timezone=2,iusdaylightrule=1,
+ iinittime=1,ivalidtime=1,inearesth=0,
+ flmin=0.03,frmax=0.95,fbmin=0.07,ftmax=0.85
+ ntextq=0,ntextcd=1,fcoffset=0.0,
+ idescriptive=1,icgmsplit=0,maxfld=10,itrajcalc=0,imakev5d=0
+ &end
+ &trajcalc
+ rtim=15,ctim=6,dtfile=3600.,dttraj=600.,vctraj='s',
+ xjtraj=95,90,85,80,75,70,65,80.6,80.6,80.6,80.6,80.6,80.6,
+ yitraj=50,55,60,65,70,75,80,77,77,77,77,77,77,
+ zktraj=.9,.9,.9,.9,.9,.9,.9,.99,.9,.8,.7,.6,.5,
+ ihydrometeor=0
+ &end
+===========================================================================
+----------------------    Plot Specification Table    ---------------------
+----------------------    ---------------------
+===========================================================================
+feld=tsfc;vcor=z;levs=0.002;ptyp=hc;cint=1;hvbr=0;cmth=fill;>
+ colr=light.gray;cosq=-20,my.violet,-15,my.light.violet,-5,my.light.blue,>
+ 0,my.blue,5,my.green,10,my.light.green,15,my.light.yellow,20,my.yellow,>
+ 25,my.orange,30,my.red,40,brown;smth=0;nmsg;pwbr=0;pwlb=0;pwhl=0;>
+ cbeg=-40;cend=40;cozr=med.gray;colr=black;nmsg;nttl
+feld=tsfc;vcor=z;levs=0.002;ptyp=hc;cint=2;hvbr=0;cmth=cont;>
+ colr=light.gray;smth=0;pwbr=0;pwlb=0;pwhl=0;cbeg=-40;cend=40;>
+ cozr=med.gray;mjsk=0;nmsg;nttl
+feld=map;ptyp=hb;outy=us_county.bin;ouds=solid;colr=light.gray;nmsg
+feld=map;ptyp=hb;outy=Earth..1L4;ouds=solid;colr=black;nmsg
+feld=tic;ptyp=hb;nmin
+feld=bullet;ptyp=hb;crsa=43.21lat,27.85lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=43.01lat,27.85lon;titl=Varna;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.69lat,23.41lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.49lat,23.41lon;titl=Sofia;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.29lat,24.72lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.09lat,24.72lon;titl=Plovdiv;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.48lat,27.48lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.28lat,27.48lon;titl=Bourgas;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=41.84lat,23.49lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=41.64lat,23.49lon;titl=Bansko;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=43.84lat,25.97lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=43.64lat,25.97lon;titl=Rouse;colr=dark.gray
+===========================================================================

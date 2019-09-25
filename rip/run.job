@@ -1,0 +1,77 @@
+#!/bin/tcsh -f
+
+#$ -cwd
+#$ -N fc_10km_3km
+#$ -l h_rt=12:00:00
+#$ -pe ompix12 24
+##$ -l h_stack=128M
+##$ -l h_vmem=4G
+#$ -S /bin/tcsh
+##$ -q p_meteo.q
+#$ -M pisov@phys.uni-sofia.bg
+#$ -m bea
+set FC_ROOT = /work/x04/imanafov/ems_root/wrfems/runs/PROBA
+set DATE = `date +"%Y%m%d%H"`
+set PROCESS = $PWD
+
+limit
+
+
+
+if (! -e .runing) then
+  echo $JOB_ID > .runing
+  cd $FC_ROOT
+  module load openmpi/1.6.5-intel-13.1
+  setenv PATH $HOME/bin:$PATH
+  ./ems_autorun --domains 1,2 --length 72 
+
+  module load rip
+  cd $PROCESS
+
+  rm -f WRF* *.cgm
+  ripdp_wrfarw WRF all $FC_ROOT/wrfprd/wrfout_d02*  
+
+
+  rip WRF bg_temp.in
+  ctrans -d sun -res 800x800 bg_temp.cgm > bg_temp_$DATE.rgb
+  convert -delay 50 bg_temp_$DATE.rgb bg_temp_current_hr.gif
+  rm -f frames/*
+  convert bg_temp_$DATE.rgb -depth 24  frames/%03d.png
+  png2yuv -I p -f 5 -b 0 -n 144 -j frames/%03d.png > temp.yuv
+  vpxenc --good --cpu-used=0 --auto-alt-ref=1 --end-usage=vbr --passes=2 --threads=2 --fps=5/1 --target-bitrate=3000 -o temp.webm temp.yuv
+  sleep 10
+#  /opt/physon/bin/ffmpeg -y -r 5 -i temp.webm -c:v libx264 -preset veryslow -qp 0 temp.mp4
+  /opt/physon/bin/ffmpeg -y -r 5 -i temp.webm -c:v libx264 -preset slow -pix_fmt yuv420p -refs:v 4 -qp 4 temp.mp4
+  /opt/physon/bin/ffmpeg -y -r 5 -i temp.webm -c:v libtheora  -qscale:v 10 -preset veryslow -qp 0 temp.ogv
+  cp frames/000.png temp.png
+ 
+  rip WRF bg_precip.in
+  ctrans -d sun -res 800x800 bg_precip.cgm > bg_precip_$DATE.rgb
+  convert -delay 50 bg_precip_$DATE.rgb bg_precip_current_hr.gif
+  rm -f frames/*
+  convert bg_precip_$DATE.rgb -depth 24  frames/%03d.png
+  png2yuv -I p -f 5 -b 0 -n 144 -j frames/%03d.png > precip.yuv
+  vpxenc --good --cpu-used=0 --auto-alt-ref=1 --end-usage=vbr --passes=2 --threads=2 --fps=5/1 --target-bitrate=3000 -o precip.webm precip.yuv
+#  /opt/physon/bin/ffmpeg -y -r 5 -i precip.webm -c:v libx264 -preset veryslow -qp 0 precip.mp4
+  sleep 10
+  /opt/physon/bin/ffmpeg -y -r 5 -i precip.webm -c:v libx264 -preset slow -pix_fmt yuv420p -refs:v 4 -qp 4 precip.mp4
+  /opt/physon/bin/ffmpeg -y -r 5 -i precip.webm -c:v libtheora  -qscale:v 10 -preset veryslow -qp 0 precip.ogv
+  cp frames/000.png precip.png
+
+
+  rip WRF _qvp.in
+  ctrans -d sun -res 800x800 _qvp.cgm > bg_qvp_$DATE.rgb
+  convert -delay 50 bg_qvp_$DATE.rgb bg_qvp_current_hr.gif
+
+  scp temp.png temp.webm temp.mp4 temp.ogv precip.png precip.webm  precip.mp4 precip.ogv bg_temp_current_hr.gif bg_precip_current_hr.gif bg_qvp_current_hr.gif meteo@10.1.1.220:/var/www/meteo/
+
+
+  cd DB
+  ./processv4.sh
+  ./mkanim.sh
+  cd ../
+
+  
+  rm -f .runing
+endif
+

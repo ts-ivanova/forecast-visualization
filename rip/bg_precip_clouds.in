@@ -1,0 +1,44 @@
+ &userin
+ idotitle=1,titlecolor='def.foreground',
+ ptimes=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24
+ ptimeunits='h',tacc=60,timezone=2,iusdaylightrule=1,
+ iinittime=1,ivalidtime=1,inearesth=0,
+ flmin=0.03,frmax=0.95,fbmin=0.07,ftmax=0.85
+ ntextq=0,ntextcd=1,fcoffset=0.0,
+ idescriptive=1,icgmsplit=0,maxfld=10,itrajcalc=0,imakev5d=0
+ &end
+ &trajcalc
+ rtim=15,ctim=6,dtfile=3600.,dttraj=600.,vctraj='s',
+ xjtraj=95,90,85,80,75,70,65,80.6,80.6,80.6,80.6,80.6,80.6,
+ yitraj=50,55,60,65,70,75,80,77,77,77,77,77,77,
+ zktraj=.9,.9,.9,.9,.9,.9,.9,.99,.9,.8,.7,.6,.5,
+ ihydrometeor=0
+ &end
+===========================================================================
+----------------------    Plot Specification Table    ---------------------
+----------------------    ---------------------
+===========================================================================
+feld=rtot1h;ptyp=hc;cint=1;hvbr=0;cmth=fill;cosq=0,white,0.1,light.gray,>
+ 2.5,my.blue,3.5,my.green,4.5,my.yellow,5.5,my.orange,7.6,my.red,10,>
+ my.brown,20,my.light.violet,40,my.violet,100,magenta;cbeg=0;smth=0;nmsg;>
+ title Total_precipitation,_mm/1h
+#feld=slp;ptyp=hc;cint=1;hvbr=1;cmth=cont;colr=med.gray;smth=3;mjsk=0;nmsg;title Mean_sea_level_pressure,_hPa
+feld=ctt;ptyp=hc;vcor=p;cint=1;hvbr=0;cmth=fill;cosq=-75,magenta,-70,>
+ white,-60,transparent,-30,light.gray,-10,light.gray,5,med.gray,15,dark.gray,>
+ 30,black;nmsg
+feld=map;ptyp=hb;outy=us_county.bin;ouds=solid;colr=light.gray;nmsg
+feld=map;ptyp=hb;outy=Earth..1L4;ouds=solid;colr=black;nmsg
+feld=tic;ptyp=hb;nmin
+feld=bullet;ptyp=hb;crsa=43.21lat,27.85lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=43.01lat,27.85lon;titl=Varna;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.69lat,23.41lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.49lat,23.41lon;titl=Sofia;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.29lat,24.72lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.09lat,24.72lon;titl=Plovdiv;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.48lat,27.48lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=42.28lat,27.48lon;titl=Bourgas;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=41.84lat,23.49lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=41.64lat,23.49lon;titl=Bansko;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=43.84lat,25.97lon;colr=dark.gray
+feld=bullet;ptyp=hb;crsa=43.64lat,25.97lon;titl=Rouse;colr=dark.gray
+===========================================================================
