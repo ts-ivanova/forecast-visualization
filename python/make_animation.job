@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#SBATCH -p short.p
+#SBATCH -n 4
+#SBATCH -t 0-2:00
+#SBATCH -o anim.%j.out
+#SBATCH -e anim.%j.err
+
+WRF_OUT=/home/mc/spisov/work/meteo/uems/runs/bulgaria/wrfprd
+
+cd /home/mc/spisov/work/meteo/postprocess/
+rm -rf *.png *.mp4 *.ogv *.webm
+
+python ./field2plot-0.7.py -b ${WRF_OUT} -f Rain
+./mkmovie.sh Rain
+scp -P 666 Rain.mp4 meteo@62.44.98.24:/var/www/meteo/bg_rain.mp4
+scp -P 666 Rain.ogv meteo@62.44.98.24:/var/www/meteo/bg_rain.ogv
+scp -P 666 Rain.webm meteo@62.44.98.24:/var/www/meteo/bg_rain.webm
+scp -P 666 Rain_0000.png meteo@62.44.98.24:/var/www/meteo/bg_rain.png
+
+python ./field2plot-0.7.py -b ${WRF_OUT} -f Temp
+./mkmovie.sh Temp
+scp -P 666 Temp.mp4 meteo@62.44.98.24:/var/www/meteo/bg_temp.mp4
+scp -P 666 Temp.ogv meteo@62.44.98.24:/var/www/meteo/bg_temp.ogv
+scp -P 666 Temp.webm meteo@62.44.98.24:/var/www/meteo/bg_temp.webm
+scp -P 666 Temp_0000.png meteo@62.44.98.24:/var/www/meteo/bg_temp.png
+
+python ./field2plot-0.7.py -b ${WRF_OUT} -f Cloud
+./mkmovie.sh Cloud
+scp -P 666 Cloud.mp4 meteo@62.44.98.24:/var/www/meteo/bg_cloud.mp4
+scp -P 666 Cloud_0000.png meteo@62.44.98.24:/var/www/meteo/bg_cloud.png
+
+python ./field2plot-0.7.py -b ${WRF_OUT} -f Snow
+./mkmovie.sh Snow
+scp -P 666 Snow.mp4 meteo@62.44.98.24:/var/www/meteo/bg_snow.mp4
+scp -P 666 Snow_0000.png meteo@62.44.98.24:/var/www/meteo/bg_snow.png
+
+python ./field2plot-0.7.py -b ${WRF_OUT} -f Humid
+./mkmovie.sh Humid
+scp -P 666 Humid.mp4 meteo@62.44.98.24:/var/www/meteo/bg_fog.mp4
+scp -P 666 Humid_0000.png meteo@62.44.98.24:/var/www/meteo/bg_fog.png
+
