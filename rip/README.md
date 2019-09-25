@@ -1,4 +1,4 @@
-==== Postprocesing WRF module output with RIP on Physon cluster
+#### Postprocesing WRF module output with RIP on Physon cluster
 
 The commands below describe the basic procedure for postprocessing the ``d02`` 
 data from WRF model output stored in ``FC_ROOT`` using installed RIP module:
